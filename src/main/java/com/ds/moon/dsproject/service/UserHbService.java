@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.ds.moon.dsproject.entity.UserHb;
-import com.ds.moon.dsproject.repository.UserHbRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,23 +15,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserHbService {
 
-    private final UserHbRepository userHbRepository;
+    // private final userHbRepository userHbRepository;
 
     public List<UserHb> getList() {
 
-        return userHbRepository.findAll();
+        // return userHbRepository.findAll();
+        return null;
     }
     public void delete(UserHb userHb){
-        userHbRepository.deleteByUserUserId(userHb.getUser().getUserId());
+        // userHbRepository.deleteByUserUserId(userHb.getUser().getUserId());
     }
 
 
     public void saveUserHb(UserHb userHb) {
-        userHbRepository.save(userHb);
+        // userHbRepository.save(userHb);
     }
 
     public List<UserHb> selectUserIdByHb(String userId) {
-        return userHbRepository.findAllByUserUserId(userId);
+        // return userHbRepository.findAllByUserUserId(userId);
+        return null;
     }
 
 }
