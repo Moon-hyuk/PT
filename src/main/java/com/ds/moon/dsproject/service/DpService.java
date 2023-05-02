@@ -1,5 +1,6 @@
 package com.ds.moon.dsproject.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -18,18 +19,32 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DpService {
     RestTemplate restTemplate = new RestTemplate();
-    String url = "http://localhost:8082";
-    
-    public List<Dept> getListDept(){
-        url += "/bt/dplist";
+    String url = "";
+    List<Dept> deptList = new ArrayList<>();
+
+    public List<Dept> getListDept() {
+        url = "http://localhost:8082/bt/dplist";
 
         ResponseEntity<List<Dept>> responseEntity = restTemplate.exchange(
-            url, HttpMethod.GET, null,
-            new ParameterizedTypeReference<List<Dept>>() {});
+                url, HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Dept>>() {
+                });
         System.out.println("status : " + responseEntity.getStatusCode());
         System.out.println("body : " + responseEntity.getBody());
+
         return responseEntity.getBody();
+
     }
 }
 
+// public String goUser() {
 
+// RestTemplate restTemplate = new RestTemplate();
+
+// ResponseEntity<String> responseEntity =
+// restTemplate.getForEntity("http://localhost:8082/test", String.class);
+// System.out.println("status : " + responseEntity.getStatusCode());
+// System.out.println("body : " + responseEntity.getBody());
+
+// return responseEntity.getBody();
+// }`

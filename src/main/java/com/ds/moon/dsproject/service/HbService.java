@@ -1,5 +1,6 @@
 package com.ds.moon.dsproject.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -19,17 +20,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HbService {
     RestTemplate restTemplate = new RestTemplate();
-    String url = "http://localhost:8082";
-    
-    public List<Hb> getListHb(){
-        url += "/bt/hblist";
+    String url = "";
+    List<Hb> HbList = new ArrayList<>();
 
-        ResponseEntity<List<Hb>> responseEntity = restTemplate.exchange(
-            url, HttpMethod.GET, null,
-            new ParameterizedTypeReference<List<Hb>>() {});
-        System.out.println("status : " + responseEntity.getStatusCode());
-        System.out.println("body : " + responseEntity.getBody());
-        return responseEntity.getBody();
+    public List<Hb> getListHb() {
+        url = "http://localhost:8082/bt/hblist";
+     
+            ResponseEntity<List<Hb>> responseEntity = restTemplate.exchange(
+                    url, HttpMethod.GET, null,
+                    new ParameterizedTypeReference<List<Hb>>() {
+                    });
+            System.out.println("status : " + responseEntity.getStatusCode());
+            System.out.println("body : " + responseEntity.getBody());
+          
+            return responseEntity.getBody();
+
     }
 
 }
