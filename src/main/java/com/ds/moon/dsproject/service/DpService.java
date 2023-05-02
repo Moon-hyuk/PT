@@ -36,15 +36,3 @@ public class DpService {
 
     }
 }
-
-// public String goUser() {
-
-// RestTemplate restTemplate = new RestTemplate();
-
-// ResponseEntity<String> responseEntity =
-// restTemplate.getForEntity("http://localhost:8082/test", String.class);
-// System.out.println("status : " + responseEntity.getStatusCode());
-// System.out.println("body : " + responseEntity.getBody());
-
-// return responseEntity.getBody();
-// }`

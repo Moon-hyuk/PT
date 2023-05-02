@@ -17,8 +17,7 @@ import com.ds.moon.dsproject.service.UserService;
 
 
 @Controller
-// @RequestMapping("/api/client")
-public class ApiController {
+public class ApiPTController {
 
 	
 	@Autowired
@@ -30,9 +29,9 @@ public class ApiController {
 	@Autowired
 	private DpService dpservice;
 
-	@GetMapping(value = "/index")
+	@GetMapping(value = "/")
 	public String index() {
-		return "/index";
+		return "/main";
 	}
 
 	//가입 페이지
@@ -44,38 +43,37 @@ public class ApiController {
 		return "usersign";
 	}
 
-	
-
+	//가입&수정 프로세스
 	@PostMapping(value = "/sign/proc")
 	public String user_sign_proc(UserDto userDto, HbDto hbDto) {
 		
 		userService.saveUser(userDto);
 		userHbService.saveUserHb(userDto,hbDto);
 		
-		return "redirect:/list";
+		return "redirect:/list?searchKeyword=";
 	}
 
+	//회원 리스트 출력
 	@GetMapping(value = "/list")
 	public String UserList(Model model, String searchKeyword, String userId) {
-		System.out.println("키워드키워드키워드키워드키워드키워드키워드키워드"+searchKeyword);
 		model.addAttribute("deptlist", dpservice.getListDept());
 		model.addAttribute("hblist", hbService.getListHb());
 		model.addAttribute("userlist", userService.getListUser(searchKeyword));
 		model.addAttribute("userinfo", userService.getUserInfo(userId));
-
 		model.addAttribute("userhblist", userHbService.selectUserIdByHb(userId));
+		model.addAttribute("searchKeyword",searchKeyword);
 
 		return "userlist";
 	}
 
-
+	//회원 삭제
 	@PostMapping(value ="/user/delete")
 	public String user_delete_proc(UserDto userDto, UserHbDto userHbDto){
 		userHbService.delete(userHbDto);
 		
 		userService.deleteUserId(userDto);
 
-		return "redirect:/list";
+		return "redirect:/list?searchKeyword=";
 	}
 
 	

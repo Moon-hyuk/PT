@@ -9,12 +9,6 @@ spring:
   mvc:
     view:
       suffix: .html
-  # Database
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/test
-    username: test
-    password: 1234
   # jpa properties
   # SQL문 정렬하여 출력 
   jpa:

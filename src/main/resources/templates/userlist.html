@@ -35,10 +35,13 @@
                         <tbody>
                             <tr th:each="list:${userlist}">
                                 <td th:text="${list.userId}"></td>
-                                <th:block th:if="${searchKeyword == null}">
-                                    <td><a th:href="@{/list(userId=${list.userId},searchKeyword='')}"
+                                <th:block>
+                                    <td th:if="${searchKeyword == null}"><a th:href="@{/list(userId=${list.userId},searchKeyword=${searchKeyword})}"
+                                            th:text="${list.userNm}"></a></td>
+                                    <td th:if="${searchKeyword != null}"><a th:href="@{/list(userId=${list.userId},searchKeyword=${searchKeyword})}"
                                             th:text="${list.userNm}"></a></td>
                                 </th:block>
+                                
                                 <td th:text="${list.dept.deptNm}"></td>
                                 <td>
                                 <span th:if="${list.userAprvYn}=='N'" th:text="승인요청"></span>
