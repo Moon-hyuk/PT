@@ -8,5 +8,125 @@
 </head>
 <body>
     <h2>테스트 페이지</h2>
+    <h2 th:text = "${deptlist}"></h2> 
+    <h2 th:text = "${hblist}"></h2> 
+    <h2 th:text = "${userlist}"></h2> 
+    <h2 th:text = "${userinfo}"></h2>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">사원명</th>
+                            <th scope="col">부서</th>
+                            <th scope="col">상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="list:${userlist}">
+                            <td th:text="${list.userId}"></td>
+                            <th:block th:if="${searchKeyword == null}">
+                                <td><a th:href="@{/list(userId=${list.userId},searchKeyword='')}"
+                                        th:text="${list.userNm}"></a></td>
+                            </th:block>
+                            <td th:text="${list.dept.deptNm}"></td>
+                            <td>
+                            <span th:if="${list.userAprvYn}=='N'" th:text="승인요청"></span>
+                            <span th:if="${list.userAprvYn}=='Y'" th:text="승인완료"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label for="id" class="col-sm-3 col-form-label">ID:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="id" name="userId" th:value="${userinfo.userId}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">이름:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="userNm" th:value="${userinfo.userNm}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-3 col-form-label">이메일:</label>
+            <div class="col-sm-9">
+                <input type="email" class="form-control" id="email" name="userEmlAddr"
+                    th:value="${userinfo.userEmlAddr}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="department" class="col-sm-3 col-form-label">부서 선택:</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="deptlist" name="deptCd">
+                    <th:block th:each="dept:${deptlist}" th:if="${userinfo.userId}!=null">
+                        <option th:text="${dept.deptNm}" th:value="${dept.deptCd}"
+                            th:selected="${dept.deptCd} == ${userinfo.dept.deptCd}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phone" class="col-sm-3 col-form-label">전화번호:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="phone" name="userTelno"
+                    th:value="${userinfo.userTelno}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="address" class="col-sm-3 col-form-label">주소:</label>
+            <div class="col-sm-9">
+<h2 th:text ="${hblist}"></h2>
+                <input type="text" class="form-control" id="address" name="userAddr"
+                    th:value="${userinfo.userAddr}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="hobby" class="col-sm-3 col-form-label">취미 선택:</label>
+            <div class="col-sm-9">
+                <div class="form-check form-check-inline">
+                    <th:block th:each="hb,i : ${hblist}">
+                        <input class="form-check-input" type="checkbox" name="hbCd" th:value="${hb.hbCd}"
+                            >
+                            <h3 th:text ="${hb.hbCd}"></h3>
+                            <!-- th:checked="${#strings.contains(hbList, hb.hbCd)}" -->
+                        <label class="form-check-label" th:text="${hb.hbNm}"></label>
+                        <!-- <h2 th:text="${i.index+1}"></h2> -->
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="status" class="col-sm-3 col-form-label">상태:</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="userAprvYn">
+                    <div>
+                    <th:block th:if ="${userinfo.userAprvYn}=='Y'">
+                        <option value="N">승인요청</option>
+                        <option value="Y" selected>승인완료 </option>
+                    </th:block>
+                    <th:block th:if ="${userinfo.userAprvYn}=='N'">
+                        <option value="N">승인요청</option>
+                        <option value="Y">승인완료</option>
+                    </th:block>
+                </div>
+                </select>
+
+             
+            </div>
+        </div>
+        <th:block th:if="${userinfo.userId}!=null">
+            <div class="form-group text-right">
+                <button type="submit" formaction="/user/sign" class="btn btn-primary">수정</button>
+                <button type="submit" formaction="/user/delete" class="btn btn-primary">삭제</button>
+            </div>
+        </th:block>
 </body>
 </html>
