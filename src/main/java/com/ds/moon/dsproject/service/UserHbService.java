@@ -47,6 +47,7 @@ public class UserHbService {
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET,
                 null, new ParameterizedTypeReference<String>() {
                 });
+                System.out.println("취미 목록 : "+response.getBody());
         if(response.getBody()==null){
             return userHblist;
         }

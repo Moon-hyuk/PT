@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.ds.moon.dsproject.dto.HbDto;
 import com.ds.moon.dsproject.dto.UserDto;
@@ -53,9 +55,13 @@ public class ApiPTController {
 		return "redirect:/list?searchKeyword=";
 	}
 
+
 	//회원 리스트 출력
 	@GetMapping(value = "/list")
 	public String UserList(Model model, String searchKeyword, String userId) {
+		if(searchKeyword==null){
+			searchKeyword="";
+		}
 		model.addAttribute("deptlist", dpservice.getListDept());
 		model.addAttribute("hblist", hbService.getListHb());
 		model.addAttribute("userlist", userService.getListUser(searchKeyword));
